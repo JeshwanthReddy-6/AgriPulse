@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantix Clone</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Translate Script -->
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="agripulse">
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active" data-translate="nav.home">Home</a>
+            <a href="#disease-detection" data-translate="nav.disease">Disease Detection</a>
+            <a href="#community" data-translate="nav.community">Community</a>
+            <a href="#marketplace" data-translate="nav.marketplace">Marketplace</a>
+            <a href="#weather" data-translate="nav.weather">Weather</a>
+        </div>
+        <div class="user-actions">
+            <select id="language-selector" class="language-selector">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="mr">Marathi</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="gu">Gujarati</option>
+                <option value="kn">Kannada</option>
+                <option value="ml">Malayalam</option>
+                <option value="pa">Punjabi</option>
+                <option value="bn">Bengali</option>
+                <option value="or">Odia</option>
+            </select>
+            <button class="login-btn" data-translate="Login">Login</button>
+            <button class="signup-btn" data-translate="Sign Up">Sign Up</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Features Vertical Carousel -->
+        <section class="features-vertical-carousel">
+            <div class="vertical-carousel-container">
+                <!-- Progress bar -->
+                <div class="vertical-carousel-progress">
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-indicator"></div>
+                    </div>
+                </div>
+                <div class="vertical-carousel-slide active">
+                    <video autoplay muted playsinline class="video-bg banner-video">
+                        <source src="static/images/Clip 6.mp4" type="video/mp4">
+                        "your browser does not support the video tag"
+                    </video>
+                    <div class="feature-text">
+                        <h3 data-translate="Disease Detection">Disease Detection</h3>
+                        <p class="feature-desc" data-translate="Identify plant diseases instantly using AI-powered image analysis for healthier crops.">Identify plant diseases instantly using AI-powered image analysis for healthier crops.</p>
+                    </div>
+                </div>
+                <div class="vertical-carousel-slide">
+                    <video autoplay muted playsinline class="video-bg banner-video">
+                        <source src="static/images/o_drone-1.mp4" type="video/mp4">
+                        "your browser does not support the video tag"
+                    </video>
+                    <div class="feature-text">
+                        <h3 data-translate="Community Forum">Community Forum</h3>
+                        <p class="feature-desc" data-translate="Connect, share, and get advice from a vibrant community of farmers and experts.">Connect, share, and get advice from a vibrant community of farmers and experts.</p>
+                    </div>
+                </div>
+                <div class="vertical-carousel-slide">
+                    <video autoplay muted playsinline class="video-bg banner-video">
+                        <source src="static/videos/community.mp4" type="video/mp4">
+                        "your browser does not support the video tag"
+                    </video> 
+                    <div class="feature-text">
+                        <h3 data-translate="Marketplace">Marketplace</h3>
+                        <p class="feature-desc" data-translate="Buy and sell seeds, tools, and fertilizers with trusted vendors and farmers.">Buy and sell seeds, tools, and fertilizers with trusted vendors and farmers.</p>
+                    </div>
+                </div>
+                <div class="vertical-carousel-slide">
+                    <video autoplay muted playsinline class="video-bg banner-video">
+                        <source src="static/videos/community.mp4" type="video/mp4">
+                        "your browser does not support the video tag"
+                    </video>
+                     <div class="feature-text">
+                        <h3 data-translate="Soil Health Analysis">Soil Health Analysis</h3>
+                        <p class="feature-desc" data-translate="Analyze your soil for nutrients and get actionable recommendations for improvement.">Analyze your soil for nutrients and get actionable recommendations for improvement.</p>
+                    </div>
+                </div>
+                <div class="vertical-carousel-slide">
+                    <video autoplay muted playsinline class="video-bg banner-video">
+                        <source src="/Agripulse/Agri/static/videos/community.mp4" type="video/mp4">
+                        "your browser does not support the video tag"
+                    </video>
+                    <div class="feature-text">
+                        <h3 data-translate="Weather Forecast">Weather Forecast</h3>
+                        <p class="feature-desc" data-translate="Stay updated with hyperlocal weather forecasts to plan your farming activities.">Stay updated with hyperlocal weather forecasts to plan your farming activities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disease Detection Section -->
+        <section id="disease-detection" class="feature-section">
+            <h2 data-translate="disease.title">Plant Disease Detection</h2>
+            <div class="upload-container">
+                <div class="upload-box">
+                    <i class="fas fa-camera"></i>
+                    <p data-translate="disease.upload">Take a photo or upload an image</p>
+                    <input type="file" id="plant-image" accept="image/*" hidden>
+                    <button class="upload-btn" data-translate="disease.uploadBtn">Upload Image</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="feature-section">
+            <h2>Community</h2>
+            <div class="community-feed">
+                <div class="post-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Questions</button>
+                    <button class="filter-btn">Tips</button>
+                    <button class="filter-btn">Success Stories</button>
+                </div>
+                <div class="posts-container">
+                    <!-- Posts will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketplace Section -->
+        <section id="marketplace" class="feature-section">
+            <h2>Marketplace</h2>
+            <div class="marketplace-categories">
+                <div class="category-card" style="cursor:pointer;" onclick="window.location.href='seeds.html'">
+                    <img src="images/seeds.png" alt="Seeds">
+                    <h3>Seeds</h3>
+                </div>
+                <div class="category-card" style="cursor:pointer;" onclick="window.location.href='tools.html'">
+                    <img src="images/tools.png" alt="Tools">
+                    <h3>Tools</h3>
+                </div>
+                <div class="category-card" style="cursor:pointer;" onclick="window.location.href='fertilizers.html'">
+                    <img src="images/fertilizers.png" alt="Fertilizers">
+                    <h3>Fertilizers</h3>
+                </div>
+                <div class="category-card" id="soil-health-card" style="cursor:pointer;">
+                    <img src="images/soil.png" alt="Soil Health">
+                    <h3>Soil Health</h3>
+                </div>
+                <div class="category-card" id="market-price-card" style="cursor:pointer;">
+                    <img src="images/market-price.png" alt="Market price">
+                    <h3>Market Price</h3>
+                </div>
+                <div class="category-card" style="cursor:pointer;" onclick="window.location.href='crop-protection.html'">
+                    <img src="images/6.webp" alt="Crop Protection">
+                    <h3>Crop Protection</h3>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Soil Health Modal (hidden by default) -->
+        <div id="soil-health-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-soil-modal">&times;</span>
+                <section id="soil-health" class="feature-section">
+                    <h2 data-translate="soil.title">Soil Health Analysis</h2>
+                    <div class="soil-health-container">
+                        <div class="soil-parameters">
+                            <h3 data-translate="soil.parameters">Enter Soil Parameters</h3>
+                            <form id="soil-health-form">
+                                <div class="parameter-group">
+                                    <label for="ph-level" data-translate="soil.ph">pH Level (0-14):</label>
+                                    <input type="number" id="ph-level" min="0" max="14" step="0.1" required>
+                                </div>
+                                <div class="parameter-group">
+                                    <label for="nitrogen" data-translate="soil.nitrogen">Nitrogen Content (mg/kg):</label>
+                                    <input type="number" id="nitrogen" min="0" required>
+                                </div>
+                                <div class="parameter-group">
+                                    <label for="phosphorus" data-translate="soil.phosphorus">Phosphorus Content (mg/kg):</label>
+                                    <input type="number" id="phosphorus" min="0" required>
+                                </div>
+                                <div class="parameter-group">
+                                    <label for="potassium" data-translate="soil.potassium">Potassium Content (mg/kg):</label>
+                                    <input type="number" id="potassium" min="0" required>
+                                </div>
+                                <div class="parameter-group">
+                                    <label for="organic-matter" data-translate="soil.organic">Organic Matter (%):</label>
+                                    <input type="number" id="organic-matter" min="0" max="100" step="0.1" required>
+                                </div>
+                                <div class="parameter-group">
+                                    <label for="moisture" data-translate="soil.moisture">Moisture Content (%):</label>
+                                    <input type="number" id="moisture" min="0" max="100" step="0.1" required>
+                                </div>
+                                <button type="submit" class="analyze-btn" data-translate="soil.analyze">Analyze Soil Health</button>
+                            </form>
+                        </div>
+                        <div class="soil-results" id="soil-results">
+                            <h3 data-translate="soil.results">Analysis Results</h3>
+                            <div class="results-content">
+                                <div class="health-score">
+                                    <div class="score-circle">
+                                        <span id="health-score">--</span>
+                                        <span class="score-label" data-translate="soil.healthScore">Health Score</span>
+                                    </div>
+                                </div>
+                                <div class="parameter-analysis">
+                                    <div class="parameter-item">
+                                        <span class="parameter-name" data-translate="soil.phLevel">pH Level</span>
+                                        <div class="parameter-bar">
+                                            <div class="parameter-fill" id="ph-bar"></div>
+                                        </div>
+                                        <span class="parameter-status" id="ph-status">--</span>
+                                    </div>
+                                    <div class="parameter-item">
+                                        <span class="parameter-name" data-translate="soil.nutrients">Nutrients</span>
+                                        <div class="parameter-bar">
+                                            <div class="parameter-fill" id="nutrients-bar"></div>
+                                        </div>
+                                        <span class="parameter-status" id="nutrients-status">--</span>
+                                    </div>
+                                    <div class="parameter-item">
+                                        <span class="parameter-name" data-translate="soil.organicMatter">Organic Matter</span>
+                                        <div class="parameter-bar">
+                                            <div class="parameter-fill" id="organic-bar"></div>
+                                        </div>
+                                        <span class="parameter-status" id="organic-status">--</span>
+                                    </div>
+                                </div>
+                                <div class="recommendations" id="soil-recommendations">
+                                    <h4 data-translate="soil.recommendations">Recommendations</h4>
+                                    <ul id="recommendations-list">
+                                        <!-- Recommendations will be added dynamically -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Weather Section -->
+        <section id="weather" class="feature-section">
+            <h2>Weather Forecast</h2>
+            <div class="weather-container">
+                <div class="current-weather">
+                    <div class="weather-info">
+                        <h3>Current Weather</h3>
+                        <p class="temperature">--°C</p>
+                        <p class="location">Loading location...</p>
+                    </div>
+                </div>
+                <div class="weather-forecast">
+                    <!-- Weather forecast will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Plantix</h3>
+                <p>Your trusted companion for plant care and farming</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#disease-detection">Disease Detection</a>
+                <a href="#community">Community</a>
+                <a href="#marketplace">Marketplace</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@agripulse.com</p>
+                <p>Phone: +1 9999999999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; agripulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Popup -->
+    <div id="chatbot-popup">
+      <div id="chatbot-header">
+        <span>AI Chatbot</span>
+        <button id="chatbot-close">&times;</button>
+      </div>
+      <div id="chatbot-messages"></div>
+      <form id="chatbot-form">
+        <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off" required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <button id="chatbot-toggle">&#128172;</button>
+
+   <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html> 
