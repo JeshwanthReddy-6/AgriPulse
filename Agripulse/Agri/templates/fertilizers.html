@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fertilizers | Agripulse</title>
-    <link rel="stylesheet" href="/Agripulse/Agri/static/fertilizers.css">
+    <link rel="stylesheet" href="{% static 'css/fertilizers.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -16,31 +17,31 @@
         <section class="fertilizer-category-grid">
             <!-- Group Cards -->
             <div class="fertilizer-card" data-group="NPK">
-                <img src="images/fertilizer-npk.png" alt="NPK Fertilizers">
+                <img src="{% static 'images/fertilizer-npk.png' %}" alt="NPK Fertilizers">
                 <h3>NPK Fertilizers</h3>
                 <div class="desc">All NPK blends for balanced crop nutrition.</div>
                 <button class="view-btn">View All</button>
             </div>
             <div class="fertilizer-card" data-group="Urea">
-                <img src="images/fertilizer-urea.png" alt="Urea Fertilizers">
+                <img src="{% static 'images/fertilizer-urea.png' %}" alt="Urea Fertilizers">
                 <h3>Urea Fertilizers</h3>
                 <div class="desc">All urea-based nitrogen fertilizers.</div>
                 <button class="view-btn">View All</button>
             </div>
             <div class="fertilizer-card" data-group="Potash">
-                <img src="images/fertilizer-mop.png" alt="Potash Fertilizers">
+                <img src="{% static 'images/fertilizer-mop.png' %}" alt="Potash Fertilizers">
                 <h3>Potash Fertilizers</h3>
                 <div class="desc">All potassium-rich fertilizers.</div>
                 <button class="view-btn">View All</button>
             </div>
             <div class="fertilizer-card" data-group="Micronutrients">
-                <img src="images/fertilizer-micronutrient.png" alt="Micronutrient Mixes">
+                <img src="{% static 'images/fertilizer-micronutrient.png' %}" alt="Micronutrient Mixes">
                 <h3>Micronutrient Mixes</h3>
                 <div class="desc">All essential trace element fertilizers.</div>
                 <button class="view-btn">View All</button>
             </div>
             <div class="fertilizer-card" data-group="Organic">
-                <img src="images/fertilizer-organic.png" alt="Organic Fertilizers">
+                <img src="{% static 'images/fertilizer-organic.png' %}" alt="Organic Fertilizers">
                 <h3>Organic Fertilizers</h3>
                 <div class="desc">Compost, vermicompost, FYM, and more.</div>
                 <button class="view-btn">View All</button>
@@ -86,35 +87,35 @@
     // Fertilizer group/type data (now with more knowledge fields)
     const fertilizerGroups = {
         NPK: [
-            { name: 'NPK 10-26-26', img: '/Agripulse/Agri/static/images/311.jpeg', desc: 'High phosphorus for root development.', usage: 'Apply as basal dose at sowing.', benefits: 'Promotes strong roots and flowering.', npk: '10-26-26', solubility: 'Granular', crops: 'Wheat, Rice, Maize', application: 'Basal', safety: 'Store in dry place.' },
-            { name: 'NPK 12-32-16', img: '/Agripulse/Agri/static/images/312.jpeg', desc: 'Rich in phosphorus and moderate potassium.', usage: 'Use during early crop growth.', benefits: 'Improves root and shoot growth.', npk: '12-32-16', solubility: 'Granular', crops: 'Pulses, Oilseeds', application: 'Basal', safety: 'Avoid over-application.' },
-            { name: 'NPK 15-15-15', img: '/Agripulse/Agri/static/images/313.jpeg', desc: 'Balanced for all stages of crop.', usage: 'Apply as basal or top dressing.', benefits: 'Supports overall plant health.', npk: '15-15-15', solubility: 'Granular', crops: 'Vegetables, Fruits', application: 'Basal/Top dressing', safety: 'Wear gloves during application.' },
-            { name: 'NPK 19-19-19', img: '/Agripulse/Agri/static/images/314.webp', desc: 'Water soluble, suitable for foliar spray.', usage: 'Dissolve in water and spray on leaves.', benefits: 'Quick nutrient uptake.', npk: '19-19-19', solubility: 'Water Soluble', crops: 'Horticulture, Floriculture', application: 'Foliar/Fertigation', safety: 'Avoid contact with eyes.' },
-            { name: 'NPK 20-20-20', img: '/Agripulse/Agri/static/images/315.jpeg', desc: 'Balanced, water soluble for all crops.', usage: 'Use in fertigation or foliar spray.', benefits: 'Uniform growth and yield.', npk: '20-20-20', solubility: 'Water Soluble', crops: 'All crops', application: 'Foliar/Fertigation', safety: 'Keep away from children.' },
-            { name: 'NPK 14-35-14', img: '/Agripulse/Agri/static/images/316.jpeg', desc: 'High phosphorus for flowering.', usage: 'Use before flowering stage.', benefits: 'Enhances flowering and fruit set.', npk: '14-35-14', solubility: 'Granular', crops: 'Cotton, Sunflower', application: 'Basal', safety: 'Do not inhale dust.' },
-            { name: 'NPK 28-28-0', img: '/Agripulse/Agri/static/images/317.jpeg', desc: 'High N and P, no K.', usage: 'Apply as basal dose.', benefits: 'Boosts early plant growth.', npk: '28-28-0', solubility: 'Granular', crops: 'Cereals', application: 'Basal', safety: 'Wash hands after use.' }
+            { name: 'NPK 10-26-26', img: '{% static "images/311.jpeg" %}', desc: 'High phosphorus for root development.', usage: 'Apply as basal dose at sowing.', benefits: 'Promotes strong roots and flowering.', npk: '10-26-26', solubility: 'Granular', crops: 'Wheat, Rice, Maize', application: 'Basal', safety: 'Store in dry place.' },
+            { name: 'NPK 12-32-16', img: '{% static "images/312.jpeg" %}', desc: 'Rich in phosphorus and moderate potassium.', usage: 'Use during early crop growth.', benefits: 'Improves root and shoot growth.', npk: '12-32-16', solubility: 'Granular', crops: 'Pulses, Oilseeds', application: 'Basal', safety: 'Avoid over-application.' },
+            { name: 'NPK 15-15-15', img: '{% static "images/313.jpeg" %}', desc: 'Balanced for all stages of crop.', usage: 'Apply as basal or top dressing.', benefits: 'Supports overall plant health.', npk: '15-15-15', solubility: 'Granular', crops: 'Vegetables, Fruits', application: 'Basal/Top dressing', safety: 'Wear gloves during application.' },
+            { name: 'NPK 19-19-19', img: '{% static "images/314.webp" %}', desc: 'Water soluble, suitable for foliar spray.', usage: 'Dissolve in water and spray on leaves.', benefits: 'Quick nutrient uptake.', npk: '19-19-19', solubility: 'Water Soluble', crops: 'Horticulture, Floriculture', application: 'Foliar/Fertigation', safety: 'Avoid contact with eyes.' },
+            { name: 'NPK 20-20-20', img: '{% static "images/315.jpeg" %}', desc: 'Balanced, water soluble for all crops.', usage: 'Use in fertigation or foliar spray.', benefits: 'Uniform growth and yield.', npk: '20-20-20', solubility: 'Water Soluble', crops: 'All crops', application: 'Foliar/Fertigation', safety: 'Keep away from children.' },
+            { name: 'NPK 14-35-14', img: '{% static "images/316.jpeg" %}', desc: 'High phosphorus for flowering.', usage: 'Use before flowering stage.', benefits: 'Enhances flowering and fruit set.', npk: '14-35-14', solubility: 'Granular', crops: 'Cotton, Sunflower', application: 'Basal', safety: 'Do not inhale dust.' },
+            { name: 'NPK 28-28-0', img: '{% static "images/317.jpeg" %}', desc: 'High N and P, no K.', usage: 'Apply as basal dose.', benefits: 'Boosts early plant growth.', npk: '28-28-0', solubility: 'Granular', crops: 'Cereals', application: 'Basal', safety: 'Wash hands after use.' }
         ],
         Urea: [
-            { name: 'Urea', img: '/Agripulse/Agri/static/images/321.jpg', desc: 'High-nitrogen fertilizer for rapid plant growth.', usage: 'Apply as top dressing or dissolve in water.', benefits: 'Boosts vegetative growth.', npk: '46-0-0', solubility: 'Granular', crops: 'All crops', application: 'Top dressing', safety: 'Store in cool, dry place.' },
-            { name: 'Urea Ammonium Nitrate', img: '/Agripulse/Agri/static/images/322.jpeg', desc: 'Liquid nitrogen fertilizer.', usage: 'Use in fertigation or foliar spray.', benefits: 'Quick nitrogen uptake.', npk: '32-0-0', solubility: 'Liquid', crops: 'Cereals, Vegetables', application: 'Fertigation/Foliar', safety: 'Avoid skin contact.' },
-            { name: 'Coated Urea', img: '/Agripulse/Agri/static/images/323.jpeg', desc: 'Slow-release urea for sustained nutrition.', usage: 'Apply as per crop schedule.', benefits: 'Reduces nitrogen loss.', npk: '46-0-0 (coated)', solubility: 'Granular', crops: 'Rice, Wheat', application: 'Basal/Top dressing', safety: 'Do not mix with water.' }
+            { name: 'Urea', img: '{% static "images/321.jpg" %}', desc: 'High-nitrogen fertilizer for rapid plant growth.', usage: 'Apply as top dressing or dissolve in water.', benefits: 'Boosts vegetative growth.', npk: '46-0-0', solubility: 'Granular', crops: 'All crops', application: 'Top dressing', safety: 'Store in cool, dry place.' },
+            { name: 'Urea Ammonium Nitrate', img: '{% static "images/322.jpeg" %}', desc: 'Liquid nitrogen fertilizer.', usage: 'Use in fertigation or foliar spray.', benefits: 'Quick nitrogen uptake.', npk: '32-0-0', solubility: 'Liquid', crops: 'Cereals, Vegetables', application: 'Fertigation/Foliar', safety: 'Avoid skin contact.' },
+            { name: 'Coated Urea', img: '{% static "images/323.jpeg" %}', desc: 'Slow-release urea for sustained nutrition.', usage: 'Apply as per crop schedule.', benefits: 'Reduces nitrogen loss.', npk: '46-0-0 (coated)', solubility: 'Granular', crops: 'Rice, Wheat', application: 'Basal/Top dressing', safety: 'Do not mix with water.' }
         ],
         Potash: [
-            { name: 'MOP (Muriate of Potash)', img: '/Agripulse/Agri/static/images/331.jpeg', desc: 'Potassium-rich fertilizer.', usage: 'Apply as basal or top dressing.', benefits: 'Improves fruit and flower quality.', npk: '0-0-60', solubility: 'Granular', crops: 'Fruits, Vegetables', application: 'Basal/Top dressing', safety: 'Avoid excessive use.' },
-            { name: 'SOP (Sulphate of Potash)', img: '/Agripulse/Agri/static/images/332.jpeg', desc: 'Low chloride potassium source.', usage: 'Use for chloride-sensitive crops.', benefits: 'Enhances crop quality.', npk: '0-0-50', solubility: 'Granular', crops: 'Potato, Tobacco', application: 'Basal', safety: 'Store in original bag.' },
-            { name: 'Potassium Nitrate', img: '/Agripulse/Agri/static/images/333.jpeg', desc: 'Source of potassium and nitrogen.', usage: 'Apply as foliar spray or fertigation.', benefits: 'Promotes flowering and fruiting.', npk: '13-0-45', solubility: 'Water Soluble', crops: 'Horticulture', application: 'Foliar/Fertigation', safety: 'Avoid inhalation.' }
+            { name: 'MOP (Muriate of Potash)', img: '{% static "images/331.jpeg" %}', desc: 'Potassium-rich fertilizer.', usage: 'Apply as basal or top dressing.', benefits: 'Improves fruit and flower quality.', npk: '0-0-60', solubility: 'Granular', crops: 'Fruits, Vegetables', application: 'Basal/Top dressing', safety: 'Avoid excessive use.' },
+            { name: 'SOP (Sulphate of Potash)', img: '{% static "images/332.jpeg" %}', desc: 'Low chloride potassium source.', usage: 'Use for chloride-sensitive crops.', benefits: 'Enhances crop quality.', npk: '0-0-50', solubility: 'Granular', crops: 'Potato, Tobacco', application: 'Basal', safety: 'Store in original bag.' },
+            { name: 'Potassium Nitrate', img: '{% static "images/333.jpeg" %}', desc: 'Source of potassium and nitrogen.', usage: 'Apply as foliar spray or fertigation.', benefits: 'Promotes flowering and fruiting.', npk: '13-0-45', solubility: 'Water Soluble', crops: 'Horticulture', application: 'Foliar/Fertigation', safety: 'Avoid inhalation.' }
         ],
         Micronutrients: [
-            { name: 'Zinc Sulphate', img: '/Agripulse/Agri/static/images/341.jpeg', desc: 'Corrects zinc deficiency.', usage: 'Apply as foliar spray or soil application.', benefits: 'Improves crop yield.', npk: '-', solubility: 'Powder', crops: 'Rice, Wheat', application: 'Foliar/Soil', safety: 'Avoid eye contact.' },
-            { name: 'Boron', img: '/Agripulse/Agri/static/images/342.jpeg', desc: 'Essential for fruit and seed development.', usage: 'Apply as per soil test.', benefits: 'Prevents fruit cracking.', npk: '-', solubility: 'Powder', crops: 'Fruits, Vegetables', application: 'Soil/Foliar', safety: 'Do not overapply.' },
-            { name: 'Copper Sulphate', img: '/Agripulse/Agri/static/images/342.jpg', desc: 'Micronutrient for enzyme activation.', usage: 'Apply as foliar spray.', benefits: 'Improves disease resistance.', npk: '-', solubility: 'Powder', crops: 'Cereals', application: 'Foliar', safety: 'Toxic if ingested.' },
-            { name: 'Iron Sulphate', img: '/Agripulse/Agri/static/images/344.jpg', desc: 'Prevents iron chlorosis.', usage: 'Apply as foliar spray.', benefits: 'Greener leaves.', npk: '-', solubility: 'Powder', crops: 'All crops', application: 'Foliar', safety: 'Avoid dust inhalation.' }
+            { name: 'Zinc Sulphate', img: '{% static "images/341.jpeg" %}', desc: 'Corrects zinc deficiency.', usage: 'Apply as foliar spray or soil application.', benefits: 'Improves crop yield.', npk: '-', solubility: 'Powder', crops: 'Rice, Wheat', application: 'Foliar/Soil', safety: 'Avoid eye contact.' },
+            { name: 'Boron', img: '{% static "images/342.jpeg" %}', desc: 'Essential for fruit and seed development.', usage: 'Apply as per soil test.', benefits: 'Prevents fruit cracking.', npk: '-', solubility: 'Powder', crops: 'Fruits, Vegetables', application: 'Soil/Foliar', safety: 'Do not overapply.' },
+            { name: 'Copper Sulphate', img: '{% static "images/342.jpg" %}', desc: 'Micronutrient for enzyme activation.', usage: 'Apply as foliar spray.', benefits: 'Improves disease resistance.', npk: '-', solubility: 'Powder', crops: 'Cereals', application: 'Foliar', safety: 'Toxic if ingested.' },
+            { name: 'Iron Sulphate', img: '{% static "images/344.jpg" %}', desc: 'Prevents iron chlorosis.', usage: 'Apply as foliar spray.', benefits: 'Greener leaves.', npk: '-', solubility: 'Powder', crops: 'All crops', application: 'Foliar', safety: 'Avoid dust inhalation.' }
         ],
         Organic: [
-            { name: 'Compost', img: '/Agripulse/Agri/static/images/351.jpeg', desc: 'Decomposed organic matter.', usage: 'Mix into soil before planting.', benefits: 'Improves soil structure.', npk: 'Varies', solubility: 'Solid', crops: 'All crops', application: 'Soil incorporation', safety: 'Wash hands after use.' },
-            { name: 'Vermicompost', img: '/Agripulse/Agri/static/images/351.jpg', desc: 'Nutrient-rich compost from earthworms.', usage: 'Apply as top dressing.', benefits: 'Enhances soil fertility.', npk: 'Varies', solubility: 'Solid', crops: 'Vegetables, Fruits', application: 'Top dressing', safety: 'Store in shade.' },
-            { name: 'Farmyard Manure (FYM)', img: '/Agripulse/Agri/static/images/352.webp', desc: 'Traditional organic fertilizer.', usage: 'Incorporate into soil.', benefits: 'Improves soil health.', npk: 'Varies', solubility: 'Solid', crops: 'All crops', application: 'Soil incorporation', safety: 'Use gloves.' },
-            { name: 'Green Manure', img: '/Agripulse/Agri/static/images/354.jpeg', desc: 'Crops grown and plowed under.', usage: 'Grow and incorporate before main crop.', benefits: 'Adds organic matter.', npk: 'Varies', solubility: 'Green biomass', crops: 'Paddy, Pulses', application: 'Soil incorporation', safety: 'No special precautions.' }
+            { name: 'Compost', img: '{% static "images/351.jpeg" %}', desc: 'Decomposed organic matter.', usage: 'Mix into soil before planting.', benefits: 'Improves soil structure.', npk: 'Varies', solubility: 'Solid', crops: 'All crops', application: 'Soil incorporation', safety: 'Wash hands after use.' },
+            { name: 'Vermicompost', img: '{% static "images/351.jpg" %}', desc: 'Nutrient-rich compost from earthworms.', usage: 'Apply as top dressing.', benefits: 'Enhances soil fertility.', npk: 'Varies', solubility: 'Solid', crops: 'Vegetables, Fruits', application: 'Top dressing', safety: 'Store in shade.' },
+            { name: 'Farmyard Manure (FYM)', img: '{% static "images/352.webp" %}', desc: 'Traditional organic fertilizer.', usage: 'Incorporate into soil.', benefits: 'Improves soil health.', npk: 'Varies', solubility: 'Solid', crops: 'All crops', application: 'Soil incorporation', safety: 'Use gloves.' },
+            { name: 'Green Manure', img: '{% static "images/354.jpeg" %}', desc: 'Crops grown and plowed under.', usage: 'Grow and incorporate before main crop.', benefits: 'Adds organic matter.', npk: 'Varies', solubility: 'Green biomass', crops: 'Paddy, Pulses', application: 'Soil incorporation', safety: 'No special precautions.' }
         ]
         // Add more groups/types as needed
     };

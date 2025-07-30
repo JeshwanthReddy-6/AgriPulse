@@ -374,60 +374,7 @@ function generateRecommendations(ph, nitrogen, phosphorus, potassium, organicMat
     updateTranslations();
 }
 
-// Vertical Carousel Auto-Scroll
-function setActiveCarouselVideo(idx) {
-    const slides = document.querySelectorAll('.vertical-carousel-slide');
-    slides.forEach((slide, i) => {
-        const video = slide.querySelector('video');
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
-            if (i === idx) {
-                video.play();
-            }
-        }
-    });
-}
 
-function initVerticalCarousel() {
-    const slides = document.querySelectorAll('.vertical-carousel-slide');
-    const progressBar = document.querySelector('.progress-bar-indicator');
-    const track = document.querySelector('.progress-bar-track');
-    let current = 0;
-    let intervalId;
-    const showSlide = (idx) => {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === idx);
-        });
-        // Move progress bar
-        if (progressBar && track) {
-            const total = slides.length;
-            const trackHeight = track.offsetHeight;
-            const indicatorHeight = progressBar.offsetHeight;
-            const maxTop = trackHeight - indicatorHeight;
-            const top = (maxTop * idx) / (total - 1);
-            progressBar.style.top = `${top}px`;
-        }
-        setActiveCarouselVideo(idx);
-    };
-    function nextSlide() {
-        current = (current + 1) % slides.length;
-        showSlide(current);
-    }
-    function startAutoScroll() {
-        intervalId = setInterval(nextSlide, 4000);
-    }
-    function stopAutoScroll() {
-        clearInterval(intervalId);
-    }
-    const carousel = document.querySelector('.features-vertical-carousel');
-    if (carousel) {
-        carousel.addEventListener('mouseenter', stopAutoScroll);
-        carousel.addEventListener('mouseleave', startAutoScroll);
-    }
-    showSlide(current);
-    startAutoScroll();
-}
 
 
 
