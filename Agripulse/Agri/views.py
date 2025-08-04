@@ -15,3 +15,4 @@ def fertilizer(request):
 
 def tools(request):
     return render(request, "tools.html")
+
