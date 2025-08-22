@@ -381,57 +381,57 @@ function generateRecommendations(ph, nitrogen, phosphorus, potassium, organicMat
 
 
 // --- Chatbot Popup Logic ---
-const chatbotPopup = document.getElementById('chatbot-popup');
-const chatbotToggle = document.getElementById('chatbot-toggle');
-const chatbotClose = document.getElementById('chatbot-close');
-const chatbotForm = document.getElementById('chatbot-form');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotMessages = document.getElementById('chatbot-messages');
+// const chatbotPopup = document.getElementById('chatbot-popup');
+// const chatbotToggle = document.getElementById('chatbot-toggle');
+// const chatbotClose = document.getElementById('chatbot-close');
+// const chatbotForm = document.getElementById('chatbot-form');
+// const chatbotInput = document.getElementById('chatbot-input');
+// const chatbotMessages = document.getElementById('chatbot-messages');
 
-function appendMessage(text, sender) {
-  const msg = document.createElement('div');
-  msg.className = 'chatbot-message ' + sender;
-  msg.textContent = text;
-  chatbotMessages.appendChild(msg);
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-}
+// function appendMessage(text, sender) {
+//   const msg = document.createElement('div');
+//   msg.className = 'chatbot-message ' + sender;
+//   msg.textContent = text;
+//   chatbotMessages.appendChild(msg);
+//   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+// }
 
-if (chatbotToggle && chatbotPopup) {
-  chatbotToggle.onclick = () => {
-    chatbotPopup.style.display = 'flex';
-    chatbotToggle.style.display = 'none';
-  };
-}
-if (chatbotClose && chatbotPopup) {
-  chatbotClose.onclick = () => {
-    chatbotPopup.style.display = 'none';
-    chatbotToggle.style.display = 'flex';
-  };
-}
-if (chatbotForm) {
-  chatbotForm.onsubmit = async (e) => {
-    e.preventDefault();
-    const userMsg = chatbotInput.value.trim();
-    if (!userMsg) return;
-    appendMessage(userMsg, 'user');
-    chatbotInput.value = '';
-    appendMessage('...', 'bot');
-    try {
-      const res = await fetch('/api/chatbot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
-      });
-      const data = await res.json();
-      // Remove the '...' loading message
-      chatbotMessages.removeChild(chatbotMessages.lastChild);
-      appendMessage(data.reply, 'bot');
-    } catch {
-      chatbotMessages.removeChild(chatbotMessages.lastChild);
-      appendMessage('Sorry, I could not connect to the AI.', 'bot');
-    }
-  };
-} 
+// if (chatbotToggle && chatbotPopup) {
+//   chatbotToggle.onclick = () => {
+//     chatbotPopup.style.display = 'flex';
+//     chatbotToggle.style.display = 'none';
+//   };
+// }
+// if (chatbotClose && chatbotPopup) {
+//   chatbotClose.onclick = () => {
+//     chatbotPopup.style.display = 'none';
+//     chatbotToggle.style.display = 'flex';
+//   };
+// }
+// if (chatbotForm) {
+//   chatbotForm.onsubmit = async (e) => {
+//     e.preventDefault();
+//     const userMsg = chatbotInput.value.trim();
+//     if (!userMsg) return;
+//     appendMessage(userMsg, 'user');
+//     chatbotInput.value = '';
+//     appendMessage('...', 'bot');
+//     try {
+//       const res = await fetch('/farmbot/chatbot/', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ message: userMsg })
+//       });
+//       const data = await res.json();
+//       // Remove the '...' loading message
+//       chatbotMessages.removeChild(chatbotMessages.lastChild);
+//       appendMessage(data.reply, 'bot');
+//     } catch {
+//       chatbotMessages.removeChild(chatbotMessages.lastChild);
+//       appendMessage('Sorry, I could not connect to the AI.', 'bot');
+//     }
+//   };
+// } 
 
 // Soil Health Modal Functionality
 const soilHealthCard = document.getElementById('soil-health-card');

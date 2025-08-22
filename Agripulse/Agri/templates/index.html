@@ -295,7 +295,18 @@
     </footer>
 
     <!-- Chatbot Popup -->
-    <div id="chatbot-popup">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="FarmBot 🌱"
+    agent-id="3852b681-0eb3-4bed-b531-5e819636f293"
+    language-code="en"
+    data-background-color="pink"
+    data-font-color="pink"
+    data-bot-font-color="pink"
+    data-user-font-color="pink"
+    ></df-messenger>
+    <!-- <div id="chatbot-popup">
       <div id="chatbot-header">
         <span>AI Chatbot</span>
         <button id="chatbot-close">&times;</button>
@@ -308,7 +319,7 @@
     </div>
     <button id="chatbot-toggle">&#128172;</button>
 
-   <script src="{% static 'js/script.js' %}"></script>
+   <script src="{% static 'js/script.js' %}"></script> -->
    <script>
    // Auto-scroll for features vertical carousel, restart video on each cycle
    (function() {

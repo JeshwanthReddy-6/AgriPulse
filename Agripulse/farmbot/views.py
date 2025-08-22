@@ -6,6 +6,7 @@ import datetime
 from .models import SoilCropRecommendation
 from .models import CropDuration
 from .models import PlantingCalendar
+
 @csrf_exempt
 def dialogflow_webhook(request):
     # print(request)

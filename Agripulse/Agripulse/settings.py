@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'Agripulse.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'irrigation_bot',
-        'USER' : 'root',
-        'PASSWORD' : 'root',
-        'HOST' : 'localhost',
+        'NAME':'bq26eu935hpewp3vfeac',
+        'USER' : 'uuq28ajkvijw1tmn',
+        'PASSWORD' : 'xu8FvtorrNBNORxbXsV1',
+        'HOST' : 'bq26eu935hpewp3vfeac-mysql.services.clever-cloud.com',
         'PORT' : '3306',
     }
 }
