@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plantix Clone</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+    .forecast-row {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+    .forecast-day {
+        background: #f5f5f5;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        min-width: 120px;
+        text-align: center;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .weather-card {
+            background: #f8fafc;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 1.5rem 2rem;
+            max-width: 600px;
+            margin: 2rem auto 1rem auto;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+        .weather-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.13); }
+        .weather-current { display: flex; align-items: center; gap: 1.5rem; }
+        .weather-current-main { font-size: 2.5rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .weather-current-details { display: flex; flex-direction: column; gap: 0.2rem; font-size: 1rem; }
+        .weather-forecast-row { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .weather-forecast-day {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            min-width: 110px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            font-size: 0.98rem;
+        }
+        .weather-forecast-day img { width: 36px; height: 36px; }
+    </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Translate Script -->
@@ -39,8 +80,8 @@
                 <option value="or">Odia</option>
                 <option value="ur">Urdu</option>
             </select>
-            <button class="login-btn" data-translate="Login">Login</button>
-            <button class="signup-btn" data-translate="Sign Up">Sign Up</button>
+            <!-- <button class="login-btn" data-translate="Login">Login</button> -->
+            <!-- <button class="signup-btn" data-translate="Sign Up">Sign Up</button> -->
         </div>
     </nav>
 
@@ -251,22 +292,28 @@
             </div>
         </div>
 
-        <!-- Weather Section -->
+    <!-- Weather Section -->
+             <!-- Weather Section (Modern Card Layout) -->
         <section id="weather" class="feature-section">
-            <h2>Weather Forecast</h2>
-            <div class="weather-container">
-                <div class="current-weather">
-                    <div class="weather-info">
-                        <h3>Current Weather</h3>
-                        <p class="temperature">--°C</p>
-                        <p class="location">Loading location...</p>
+            <h2>Weather</h2>
+            <div class="weather-card" id="weather-card">
+                <div class="weather-current">
+                    <div class="weather-current-main">
+                        <img id="weather-current-icon" src="" alt="Weather Icon" style="display:none;">
+                        <span id="weather-current-temp">--°C</span>
+                    </div>
+                    <div class="weather-current-details">
+                        <span id="weather-current-condition">Loading...</span>
+                        <span id="weather-current-location">Locating...</span>
                     </div>
                 </div>
-                <div class="weather-forecast">
-                    <!-- Weather forecast will be dynamically added here -->
+                <div class="weather-forecast-row" id="weather-forecast-row">
+                    <!-- 5-day forecast cards will be injected here -->
                 </div>
+                <div id="weather-error" style="color:red;margin-top:0.5rem;"></div>
             </div>
         </section>
+    <!-- WEATHER SECTION WILL BE REWRITTEN -->
     </main>
 
     <!-- Footer -->
@@ -342,6 +389,13 @@
            showSlide(current);
        }, interval);
    })();
+
+   // Initialize weather on page load
+   window.addEventListener('DOMContentLoaded', function() {
+       if (typeof initializeWeather === 'function') {
+           initializeWeather();
+       }
+   });
    </script>
 </body>
 </html>

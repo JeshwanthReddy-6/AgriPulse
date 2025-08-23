@@ -1,10 +1,123 @@
+// --- Modern Weather Section ---
+function renderWeatherError(msg) {
+    document.getElementById('weather-error').textContent = msg;
+}
+
+function updateWeatherCard(current, location) {
+    document.getElementById('weather-current-temp').textContent = `${current.temp_c}°C`;
+    document.getElementById('weather-current-condition').textContent = current.condition.text;
+    document.getElementById('weather-current-location').textContent = `${location.name}, ${location.region}`;
+    const icon = document.getElementById('weather-current-icon');
+    icon.src = current.condition.icon;
+    icon.style.display = '';
+}
+
+function updateForecastRow(forecastArr) {
+    const row = document.getElementById('weather-forecast-row');
+    row.innerHTML = '';
+    forecastArr.forEach(day => {
+        const d = new Date(day.date);
+        row.innerHTML += `
+        <div class="weather-forecast-day">
+            <div><strong>${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</strong></div>
+            <img src="${day.day.condition.icon}" alt="icon">
+            <div>${day.day.condition.text}</div>
+            <div>🌡️ ${day.day.mintemp_c}&ndash;${day.day.maxtemp_c}°C</div>
+            <div>🌧️ ${day.day.daily_chance_of_rain ?? '--'}% rain</div>
+        </div>`;
+    });
+}
+
+function fetchAndRenderWeather() {
+    if (!navigator.geolocation) {
+        renderWeatherError('Geolocation not supported');
+        return;
+    }
+    navigator.geolocation.getCurrentPosition(async pos => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        const apiKey = '8a4763a175e00c9c94b37a51176ec546'; // <-- PUT YOUR OpenWeatherMap KEY HERE
+        if (!apiKey || apiKey === 'YOUR_API_KEY') {
+            renderWeatherError('Weather API key is missing or not set. Please contact the site administrator.');
+            return;
+        }
+        // OpenWeatherMap endpoints
+        const currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        try {
+            // Fetch current weather
+            const resCurrent = await fetch(currentUrl);
+            const current = await resCurrent.json();
+            if (current.cod !== 200) {
+                renderWeatherError('Weather API error: ' + (current.message || 'Unknown error'));
+                return;
+            }
+            // Fetch 5-day forecast (3-hour intervals)
+            const resForecast = await fetch(forecastUrl);
+            const forecast = await resForecast.json();
+            if (forecast.cod !== '200') {
+                renderWeatherError('Weather API error: ' + (forecast.message || 'Unknown error'));
+                return;
+            }
+            // Prepare current weather data
+            updateWeatherCard({
+                temp_c: Math.round(current.main.temp),
+                condition: { text: current.weather[0].description, icon: `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png` }
+            }, {
+                name: current.name,
+                region: current.sys.country
+            });
+            // Prepare daily forecast (group by day, take noon forecast)
+            const days = {};
+            forecast.list.forEach(item => {
+                const date = item.dt_txt.split(' ')[0];
+                if (!days[date] && item.dt_txt.includes('12:00:00')) {
+                    days[date] = item;
+                }
+            });
+            // Remove today, show next 5 days
+            const today = new Date().toISOString().split('T')[0];
+            const forecastArr = Object.keys(days)
+                .filter(date => date !== today)
+                .slice(0, 5)
+                .map(date => {
+                    const item = days[date];
+                    return {
+                        date,
+                        day: {
+                            condition: {
+                                text: item.weather[0].description,
+                                icon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`
+                            },
+                            mintemp_c: Math.round(item.main.temp_min),
+                            maxtemp_c: Math.round(item.main.temp_max),
+                            daily_chance_of_rain: item.pop ? Math.round(item.pop * 100) : '--'
+                        }
+                    };
+                });
+            updateForecastRow(forecastArr);
+            // External link
+            const card = document.getElementById('weather-card');
+            card.onclick = () => {
+                window.open(`https://openweathermap.org/city/${current.id}`, '_blank');
+            };
+        } catch (e) {
+            renderWeatherError('Could not fetch weather.');
+        }
+    }, err => {
+        renderWeatherError('Location access denied');
+    });
+}
+
+// Auto-run on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', fetchAndRenderWeather);
+// Expose for legacy/inline HTML compatibility
+window.initializeWeather = fetchAndRenderWeather;
 // DOM Elements
 const uploadBtn = document.querySelector('.upload-btn');
 const plantImageInput = document.getElementById('plant-image');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const postsContainer = document.querySelector('.posts-container');
-const temperatureElement = document.querySelector('.temperature');
-const locationElement = document.querySelector('.location');
 
 // Sample community posts data
 const communityPosts = [
@@ -150,61 +263,12 @@ function createPostElement(post) {
             <span>Posted by ${post.author}</span>
             <div class="post-actions">
                 <button onclick="likePost(this)">
-                    <i class="fas fa-heart"></i> ${post.likes}
-                </button>
-                <button onclick="showComments(this)">
-                    <i class="fas fa-comment"></i> ${post.comments}
-                </button>
-            </div>
-        </div>
-    `;
-    return div;
-}
 
-function likePost(button) {
-    const likes = parseInt(button.textContent.match(/\d+/)[0]);
-    button.innerHTML = `<i class="fas fa-heart"></i> ${likes + 1}`;
-}
-
-function showComments(button) {
-    // Implement comments functionality
-    alert('Comments feature coming soon!');
-}
-
-// Weather Functionality
-function initializeWeather() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;
-                fetchWeatherData(latitude, longitude);
-            },
-            error => {
-                console.error('Error getting location:', error);
-                locationElement.textContent = 'Location access denied';
-            }
-        );
-    } else {
-        locationElement.textContent = 'Geolocation not supported';
+                    // WEATHER SECTION JS WILL BE REWRITTEN
+        </div>`;
     }
-}
 
-async function fetchWeatherData(latitude, longitude) {
-    // Note: In a real application, you would use a weather API
-    // For this example, we'll use mock data
-    const mockWeatherData = {
-        temperature: 25,
-        location: 'Your Location',
-        condition: 'Sunny'
-    };
 
-    updateWeatherUI(mockWeatherData);
-}
-
-function updateWeatherUI(data) {
-    temperatureElement.textContent = `${data.temperature}°C`;
-    locationElement.textContent = data.location;
-}
 
 // Navigation Functionality
 function initializeNavigation() {
