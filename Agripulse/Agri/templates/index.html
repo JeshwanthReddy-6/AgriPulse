@@ -142,27 +142,27 @@
             <h2>Marketplace</h2>
             <div class="marketplace-categories">
                 <a href="{% url 'seed' %}" class="category-card" style="cursor:pointer; display:block; text-decoration:none; color:inherit;">
-                    <img src="{% static 'images/seeds.png' %}" alt="Seeds">
+                    <img src="{% static 'images/1.jpg' %}" alt="Seeds">
                     <h3>Seeds</h3>
                 </a>
                 <a href="{% url 'tools' %}" class="category-card" style="cursor:pointer; display:block; text-decoration:none; color:inherit;">
-                    <img src="{% static 'images/tools.png' %}" alt="Tools">
+                    <img src="{% static 'images/2.webp' %}" alt="Tools">
                     <h3>Tools</h3>
                 </a>
                 <a href="{% url 'fertilizer' %}" class="category-card" style="cursor:pointer; display:block; text-decoration:none; color:inherit;">
-                    <img src="{% static 'images/fertilizers.png' %}" alt="Fertilizers">
+                    <img src="{% static 'images/3.jpg' %}" alt="Fertilizers">
                     <h3>Fertilizers</h3>
                 </a>
                 <div class="category-card" id="soil-health-card" style="cursor:pointer;">
-                    <img src="images/soil.png" alt="Soil Health">
+                    <img src="{% static 'images/4.jpg' %}" alt="Soil Health">
                     <h3>Soil Health</h3>
                 </div>
                 <div class="category-card" id="market-price-card" style="cursor:pointer;">
-                    <img src="images/market-price.png" alt="Market price">
+                    <img src="{% static 'images/5.jpg' %}" alt="Market price">
                     <h3>Market Price</h3>
                 </div>
                 <a href="{% url 'crop_protection' %}" class="category-card" style="cursor:pointer; display:block; text-decoration:none; color:inherit;">
-                    <img src="{% static 'images/6.webp' %}" alt="Crop Protection">
+                    <img src="{% static 'images/6.jpg' %}" alt="Crop Protection">
                     <h3>Crop Protection</h3>
                 </a>
                 
@@ -333,6 +333,9 @@
                }
            });
        }
+
+       // Show the first slide initially
+       showSlide(current);
 
        setInterval(() => {
            current = (current + 1) % slides.length;
