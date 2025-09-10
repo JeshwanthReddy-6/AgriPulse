@@ -47,12 +47,194 @@
         }
         .weather-forecast-day img { width: 36px; height: 36px; }
     </style>
+    <style>
+        /* Dynamic agriculture-inspired background */
+        .dynamic-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+        .dynamic-bg::before {
+            content: "";
+            position: absolute;
+            inset: -20%;
+            background:
+                radial-gradient(60% 80% at 12% 8%, #b7f0a2 0%, rgba(183,240,162,0) 60%),
+                radial-gradient(50% 60% at 88% 18%, #a0e4b0 0%, rgba(160,228,176,0) 55%),
+                radial-gradient(70% 70% at 50% 105%, #e8ffe0 0%, rgba(232,255,224,0) 65%);
+            filter: saturate(1.05);
+            animation: bg-drift 36s ease-in-out infinite alternate;
+            transform: translate3d(0,0,0);
+        }
+        .dynamic-bg::after {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.28) 45%, rgba(255,255,255,0.55) 100%);
+            pointer-events: none;
+        }
+        .agri-waves { position: absolute; left: 0; right: 0; bottom: -2vh; height: 22vh; opacity: 0.9; }
+        .agri-waves path { transform-origin: center; animation: sway 9s ease-in-out infinite; }
+        .agri-waves path:nth-child(2) { animation-duration: 11s; animation-delay: -2s; opacity: 0.8; }
+        .agri-waves path:nth-child(3) { animation-duration: 13s; animation-delay: -4s; opacity: 0.75; }
+        @keyframes bg-drift { 0% { transform: translate3d(-1%, -1%, 0) scale(1.03); } 100% { transform: translate3d(1%, 1%, 0) scale(1.06); } }
+        @keyframes sway { 0% { transform: translateY(0px); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0px); } }
+        @media (prefers-reduced-motion: reduce) {
+            .dynamic-bg::before, .agri-waves path { animation: none !important; }
+        }
+    </style>
+    <style>
+        /* Enhanced sky, hills; toned-down commercial look */
+        .sky-overlay { position: absolute; inset: -10%; background: linear-gradient(180deg, #eef5ee 0%, #e7f0ea 35%, #f7fbf5 100%); animation: sky-pan 120s ease-in-out infinite alternate; filter: saturate(1.0); }
+        /* Hide playful elements for a professional look */
+        .sun-orb { display: none !important; }
+        .cloud-layer { display: none !important; }
+        /* Distant hills silhouette */
+        .hills-layer { position: absolute; left: 0; right: 0; bottom: 0; height: 28vh; opacity: 0.65; pointer-events: none; animation: hills-pan 60s ease-in-out infinite alternate; }
+        .hills-layer svg { width: 100%; height: 100%; display: block; }
+        @keyframes hills-pan { 0% { transform: translateX(0); } 100% { transform: translateX(-1.5%); } }
+        @keyframes sky-pan { 0% { transform: translate3d(0,0,0) scale(1.01); } 100% { transform: translate3d(0,-1%,0) scale(1.02); } }
+        @media (prefers-reduced-motion: reduce) { .sky-overlay, .hills-layer { animation: none !important; } }
+    </style>
+    <style>
+        /* Floating leaves layer */
+        .leaf-layer { position: absolute; inset: 0; pointer-events: none; }
+        .leaf { position: absolute; width: 28px; height: 28px; opacity: 0.85; background-repeat: no-repeat; background-size: contain; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.08)); animation: leaf-drift 18s linear infinite; }
+        .leaf.small { width: 20px; height: 20px; opacity: 0.75; }
+        .leaf.large { width: 34px; height: 34px; }
+        @keyframes leaf-drift {
+            0% { transform: translate3d(var(--x-start, 0), 0, 0) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.9; }
+            50% { transform: translate3d(calc(var(--x-start, 0) + var(--x-range, 40vw)), 40vh, 0) rotate(180deg); }
+            100% { transform: translate3d(calc(var(--x-start, 0) + var(--x-range, 40vw)), 100vh, 0) rotate(360deg); opacity: 0; }
+        }
+        /* Inline SVG leaves as data URIs for performance */
+        .leaf.green {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><path fill='%2374c69d' d='M53 13c-7 7-18 9-26 7-2 8 0 19 7 26 0 0 7 7 16 7 0 0-2-9 7-16 7-7 7-16 7-16s-9 0-16 7z'/><path fill='none' stroke='%235aa382' stroke-width='2' d='M31 31c6 6 14 8 22 8'/></svg>");
+        }
+        .leaf.teal {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><path fill='%2395d5b2' d='M12 40c8-8 21-11 30-8 3-9 0-22-8-30 0 0-8-8-18-8 0 0 2 11-8 18-8 8-8 18-8 18s10 0 18-8z'/><path fill='none' stroke='%2374b49b' stroke-width='2' d='M32 32c-7-7-16-10-25-10'/></svg>");
+        }
+        .leaf.dark {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><path fill='%235fab8e' d='M8 18c10 0 22 6 28 14 8 6 14 18 14 28 0 0-12-6-18-14C24 40 18 28 18 18 18 8 8 8 8 8z'/><path fill='none' stroke='%234f927a' stroke-width='2' d='M18 18c0 10 6 22 14 28'/></svg>");
+        }
+        .leaf:nth-child(1) { left: 5%;  --x-start: -10vw; --x-range: 30vw; animation-duration: 22s; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 15%; --x-start: -5vw;  --x-range: 35vw; animation-duration: 24s; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 25%; --x-start: 0vw;   --x-range: 30vw; animation-duration: 20s; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 35%; --x-start: -8vw;  --x-range: 40vw; animation-duration: 26s; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 45%; --x-start: -12vw; --x-range: 45vw; animation-duration: 28s; animation-delay: 1s; }
+        .leaf:nth-child(6) { left: 55%; --x-start: -6vw;  --x-range: 30vw; animation-duration: 23s; animation-delay: 3s; }
+        .leaf:nth-child(7) { left: 65%; --x-start: -4vw;  --x-range: 35vw; animation-duration: 25s; animation-delay: 5s; }
+        .leaf:nth-child(8) { left: 75%; --x-start: -10vw; --x-range: 40vw; animation-duration: 27s; animation-delay: 7s; }
+        .leaf:nth-child(9) { left: 85%; --x-start: -12vw; --x-range: 30vw; animation-duration: 21s; animation-delay: 9s; }
+        .leaf:nth-child(10){ left: 95%; --x-start: -8vw;  --x-range: 25vw; animation-duration: 24s; animation-delay: 11s; }
+        @media (prefers-reduced-motion: reduce) {
+            .leaf { animation: none !important; opacity: 0.5; }
+        }
+    </style>
+    <style>
+        /* Enhanced sky, sun, and clouds */
+        .sky-overlay { position: absolute; inset: -10%; background: radial-gradient(120% 80% at 50% -10%, #eafdea 0%, rgba(234,253,234,0) 50%), linear-gradient(180deg, #e9f7ff 0%, #eaf7ef 35%, #f9fff6 100%); animation: sky-pan 60s ease-in-out infinite alternate; filter: saturate(1.05); }
+        .sun-orb { position: absolute; top: 8vh; left: 10vw; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.85) 0%, #ffd166 35%, rgba(255,209,102,0.6) 55%, rgba(255,209,102,0.0) 70%); box-shadow: 0 0 120px 40px rgba(255,209,102,0.35); animation: sun-float 18s ease-in-out infinite; }
+        .cloud-layer { position: absolute; inset: 0; pointer-events: none; }
+        .cloud { position: absolute; top: 0; width: 240px; height: 120px; opacity: 0.45; background-repeat: no-repeat; background-size: contain; filter: blur(0.2px); animation: cloud-drift linear infinite; }
+        .cloud.c1 { left: -25%; top: 12vh; animation-duration: 68s; }
+        .cloud.c2 { left: -35%; top: 22vh; animation-duration: 80s; animation-delay: -10s; opacity: 0.5; }
+        .cloud.c3 { left: -30%; top: 34vh; animation-duration: 88s; animation-delay: -20s; opacity: 0.42; }
+        .cloud.c4 { left: -40%; top: 48vh; animation-duration: 92s; animation-delay: -30s; opacity: 0.38; }
+        .cloud.c5 { left: -20%; top: 60vh; animation-duration: 76s; animation-delay: -15s; opacity: 0.44; }
+        .cloud { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='120' viewBox='0 0 240 120'><g fill='%23ffffff'><ellipse cx='60' cy='70' rx='50' ry='30'/><ellipse cx='110' cy='60' rx='55' ry='35'/><ellipse cx='160' cy='75' rx='45' ry='28'/><ellipse cx='200' cy='65' rx='40' ry='25'/></g></svg>"); }
+        @keyframes cloud-drift { 0% { transform: translateX(0); } 100% { transform: translateX(160vw); } }
+        @keyframes sky-pan { 0% { transform: translate3d(0,0,0) scale(1.02); } 100% { transform: translate3d(0,-1%,0) scale(1.04); } }
+        @keyframes sun-float { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(8px) scale(1.02); } }
+        @media (prefers-reduced-motion: reduce) { .sky-overlay, .sun-orb, .cloud { animation: none !important; } }
+    </style>
+    <style>
+        /* Community UI minimal styling */
+        .community-compose { background: rgba(255,255,255,0.8); backdrop-filter: blur(6px); border-radius: 12px; padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin: 1rem 0; }
+        .compose-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .compose-row + .compose-row { margin-top: 0.75rem; }
+        .compose-row.single { grid-template-columns: 1fr; }
+        .compose-row input, .compose-row select, .compose-row textarea { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
+        .compose-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; }
+        .btn-primary { background: #2ea44f; color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; }
+        .btn-primary:hover { background: #279445; }
+        .posts-container { display: grid; gap: 0.75rem; }
+        .post-card { background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); border-radius: 12px; padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .post-meta { display: flex; gap: 0.5rem; font-size: 0.85rem; color: #64748b; flex-wrap: wrap; }
+        .post-content { margin-top: 0.5rem; font-size: 1rem; }
+        .post-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+        .icon-btn { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 0.35rem 0.6rem; border-radius: 999px; cursor: pointer; font-size: 0.9rem; }
+        .icon-btn.active { background: #e6f7ed; border-color: #b6eccb; color: #207844; }
+        .comments { margin-top: 0.75rem; border-top: 1px dashed #e2e8f0; padding-top: 0.75rem; display: none; }
+        .comment { background: #f8fafc; border: 1px solid #eef2f7; border-radius: 8px; padding: 0.5rem 0.6rem; margin-top: 0.5rem; }
+        .comment-meta { font-size: 0.8rem; color: #64748b; }
+        .comment-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; }
+        .comment-form textarea { grid-column: 1 / -1; }
+        .comment-form button { justify-self: start; }
+        .filter-btn { cursor: pointer; }
+        .identity-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(6px); border-radius: 12px; padding: 0.75rem 1rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 0.75rem; }
+        .identity-card input { padding: 0.5rem 0.7rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
+        .identity-badge { display: flex; gap: 0.5rem; align-items: center; }
+        .identity-name { font-weight: 600; }
+        .tips-list .tip-item { background: rgba(255,255,255,0.9); border: 1px solid #eef2f7; border-radius: 10px; padding: 0.75rem; }
+        .tips-list .tip-meta { font-size: 0.85rem; color: #64748b; margin-bottom: 0.25rem; }
+        @media (max-width: 640px) {
+            .compose-row { grid-template-columns: 1fr; }
+            .comment-form { grid-template-columns: 1fr; }
+        }
+    </style>
+    <style>
+        /* Comment action links */
+        .comment-actions { display: flex; gap: 0.5rem; margin-top: 0.35rem; }
+        .link-btn { background: transparent; border: none; color: #2563eb; padding: 0; cursor: pointer; font-size: 0.85rem; }
+        .link-btn:hover { text-decoration: underline; }
+        .edit-comment-form { margin-top: 0.4rem; display: none; }
+        .edit-comment-form textarea { width: 100%; padding: 0.5rem 0.6rem; border: 1px solid #e5e7eb; border-radius: 8px; }
+        .edit-actions { display: flex; gap: 0.5rem; margin-top: 0.35rem; }
+        .btn-ghost { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.35rem 0.6rem; cursor: pointer; }
+    </style>
+    <style>
+        /* Scrollable comments panel */
+        .comments { max-height: 260px; overflow-y: auto; background: rgba(255,255,255,0.6); border: 1px dashed #e2e8f0; border-radius: 10px; padding: 0.6rem; }
+        /* Edit post form */
+        .edit-post-form { margin-top: 0.6rem; display: none; }
+        .edit-post-form input, .edit-post-form textarea { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
+        .edit-post-form .edit-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .post-owner-actions { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+    </style>
+    <style>
+        /* Scrollable posts list so long feeds don't extend the page */
+        .posts-container { max-height: 65vh; overflow-y: auto; padding-right: 4px; }
+    </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Translate Script -->
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
+    <div class="dynamic-bg" aria-hidden="true">
+        <div class="grain-overlay"></div>
+        <div class="sky-overlay"></div>
+        <div class="hills-layer" aria-hidden="true">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+                <path fill="#a7c4a0" d="M0,224L60,208C120,192,240,160,360,154.7C480,149,600,171,720,170.7C840,171,960,149,1080,138.7C1200,128,1320,128,1380,128L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"/>
+                <path fill="#8fb391" d="M0,256L80,240C160,224,320,192,480,176C640,160,800,160,960,149.3C1120,139,1280,117,1360,106.7L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"/>
+            </svg>
+        </div>
+        <svg class="agri-waves" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="#b7e4c7" d="M0,288L48,256C96,224,192,160,288,133.3C384,107,480,117,576,122.7C672,128,768,128,864,149.3C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/>
+            <path fill="#95d5b2" d="M0,288L60,272C120,256,240,224,360,197.3C480,171,600,149,720,154.7C840,160,960,192,1080,213.3C1200,235,1320,245,1380,250.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"/>
+            <path fill="#74c69d" d="M0,288L80,272C160,256,320,224,480,213.3C640,203,800,213,960,208C1120,203,1280,181,1360,170.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"/>
+        </svg>
+        <div class="leaf-layer">
+            <span class="leaf green small"></span>
+            <span class="leaf teal"></span>
+            <span class="leaf dark large"></span>
+            <span class="leaf green"></span>
+            <span class="leaf teal small"></span>
+            <span class="leaf dark"></span>
+            <span class="leaf green large"></span>
+            <span class="leaf teal"></span>
+            <span class="leaf dark small"></span>
+            <span class="leaf green"></span>
+        </div>
+    </div>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">
@@ -167,12 +349,47 @@
             <h2>Community</h2>
             <div class="community-feed">
                 <div class="post-filters">
-                    <button class="filter-btn active">All</button>
-                    <button class="filter-btn">Questions</button>
-                    <button class="filter-btn">Tips</button>
-                    <button class="filter-btn">Success Stories</button>
+                    <button class="filter-btn active" data-filter="posts">Posts</button>
+                    <button class="filter-btn" data-filter="questions">My Questions</button>
+                    <button class="filter-btn" data-filter="tips">Tips For Me</button>
                 </div>
-                <div class="posts-container">
+                <div class="identity-card" id="identity-card">
+                    <div id="identity-inputs">
+                        <input id="id-name" type="text" placeholder="Your Name" required>
+                        <input id="id-mobile" type="tel" placeholder="Mobile Number (10 digits)" pattern="[0-9]{10}" required>
+                        <button class="btn-primary" id="save-identity">Save</button>
+                    </div>
+                    <div id="identity-display" style="display:none;" class="identity-badge">
+                        <span>Signed in as:</span>
+                        <span class="identity-name" id="identity-name"></span>
+                        <span>·</span>
+                        <span id="identity-mobile"></span>
+                        <button class="icon-btn" id="change-identity">Change</button>
+                        <button class="btn-primary" id="new-post">New Post</button>
+                    </div>
+                </div>
+                <div class="community-compose" id="compose-form" style="display:none;">
+                    <div class="compose-row">
+                        <input id="compose-title" type="text" placeholder="Title (optional)">
+                    </div>
+                    <div class="compose-row single">
+                        <textarea id="compose-content" rows="3" placeholder="Write your question or tip..." required></textarea>
+                    </div>
+                    <div class="compose-actions">
+                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                            <label for="compose-type" style="font-size:0.9rem;color:#334155;">Type</label>
+                            <select id="compose-type">
+                                <option value="question">Question</option>
+                                <option value="tip">Tip</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                            <button class="icon-btn" id="cancel-post">Cancel</button>
+                            <button class="btn-primary" id="compose-submit">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts-container" id="posts-container">
                     <!-- Posts will be dynamically added here -->
                 </div>
             </div>
@@ -396,6 +613,339 @@
            initializeWeather();
        }
    });
+   </script>
+   <script>
+   // Community posts with localStorage and identity (name+mobile)
+   (function() {
+       const STORAGE_KEY = 'agripulse.community.posts.v2';
+       const IDENTITY_KEY = 'agripulse.identity.v1';
+       const postsContainer = document.getElementById('posts-container');
+       const filters = document.querySelectorAll('.post-filters .filter-btn');
+       const compose = {
+           type: document.getElementById('compose-type'),
+           title: document.getElementById('compose-title'),
+           content: document.getElementById('compose-content'),
+           submit: document.getElementById('compose-submit')
+       };
+       const identity = {
+           inputs: document.getElementById('identity-inputs'),
+           display: document.getElementById('identity-display'),
+           name: document.getElementById('identity-name'),
+           mobile: document.getElementById('identity-mobile'),
+           btnSave: document.getElementById('save-identity'),
+           btnChange: document.getElementById('change-identity'),
+           btnNewPost: document.getElementById('new-post'),
+           fieldName: document.getElementById('id-name'),
+           fieldMobile: document.getElementById('id-mobile')
+       };
+
+       function loadPosts() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
+       function savePosts(posts) { localStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); }
+       function loadIdentity() { try { return JSON.parse(localStorage.getItem(IDENTITY_KEY)) || null; } catch(e) { return null; } }
+       function saveIdentity(obj) { localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj)); }
+
+       function humanDate(ts) { return new Date(ts).toLocaleString(); }
+       function snippet(text) { return text.length > 40 ? text.slice(0, 40) + '...' : text; }
+       function isMe(name, mobile) { const me = loadIdentity(); return !!me && me.name === name && me.mobile === mobile; }
+
+       function postTemplate(post) {
+           const likes = post.likes || 0;
+           const comments = post.comments || [];
+           const typeLabel = post.type === 'tip' ? 'Tip' : 'Question';
+           const owner = isMe(post.name, post.mobile);
+           return `
+               <div class="post-card" data-id="${post.id}" data-type="${post.type}">
+                   <div class="post-meta"><strong>${escapeHtml(post.name)}</strong> · <span>${typeLabel}</span> · <span>${humanDate(post.createdAt)}</span></div>
+                   ${post.title ? `<div class="post-title" style="margin-top:4px;font-weight:600;">${escapeHtml(post.title)}</div>` : ''}
+                   <div class="post-content">${linkify(escapeHtml(post.content))}</div>
+                   ${owner ? `<div class="post-owner-actions"><button class="link-btn btn-edit-post">Edit post</button><button class="link-btn btn-delete-post">Delete post</button></div>
+                   <form class="edit-post-form"><input name="title" type="text" placeholder="Title (optional)" value="${escapeHtml(post.title||'')}"/><textarea name="content" rows="3" placeholder="Update content...">${escapeHtml(post.content)}</textarea><div class="edit-actions"><button type="button" class="btn-ghost btn-cancel-edit-post">Cancel</button><button type="button" class="btn-primary btn-save-edit-post">Save</button></div></form>` : ''}
+                   <div class="post-actions">
+                       <button class="icon-btn btn-like">👍 <span class="like-count">${likes}</span></button>
+                       <button class="icon-btn btn-toggle-comments">💬 <span class="comment-count">${comments.length}</span></button>
+                   </div>
+                   <div class="comments" style="display:none;">
+                       <div class="existing-comments">
+                           ${comments.map(c => commentTemplate(c)).join('')}
+                       </div>
+                       <form class="comment-form">
+                           <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.25rem;">
+                               <label for="comment-type" style="font-size:0.9rem;color:#334155;">Type</label>
+                               <select name="ctype">
+                                   <option value="comment">Comment</option>
+                                   <option value="tip">Tip</option>
+                               </select>
+                           </div>
+                           <textarea name="content" rows="2" placeholder="Write a comment or tip..." required></textarea>
+                           <button type="submit" class="btn-primary">Submit</button>
+                       </form>
+                   </div>
+               </div>
+           `;
+       }
+
+       function currentFilter() {
+           const active = document.querySelector('.post-filters .filter-btn.active');
+           return active ? active.getAttribute('data-filter') : 'posts';
+       }
+
+       function commentTemplate(c) {
+           const badge = c.ctype === 'tip' ? ' (Tip)' : '';
+           const owner = isMe(c.name, c.mobile);
+           const actions = owner ? `<div class="comment-actions"><button class="link-btn btn-edit-comment" data-cid="${c.id}">Edit</button><button class="link-btn btn-delete-comment" data-cid="${c.id}">Delete</button></div>` : '';
+           return `<div class="comment" data-cid="${c.id}"><div class="comment-meta"><strong>${escapeHtml(c.name)}</strong>${badge} · ${humanDate(c.createdAt)}</div><div class="comment-text">${linkify(escapeHtml(c.content))}</div>${actions}<form class="edit-comment-form"><textarea rows="2">${escapeHtml(c.content)}</textarea><div class="edit-actions"><button type="button" class="btn-ghost btn-cancel-edit">Cancel</button><button type="button" class="btn-primary btn-save-edit">Save</button></div></form></div>`;
+       }
+
+       function escapeHtml(str) { return String(str).replace(/[&<>"']/g, function(m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'})[m]; }); }
+       function linkify(text) { return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
+
+       function render(filter) {
+           const posts = loadPosts().sort((a,b) => b.createdAt - a.createdAt);
+           const me = loadIdentity();
+           let visible = posts;
+           if (filter === 'questions') {
+               visible = me ? posts.filter(p => p.type === 'question' && p.name === me.name && p.mobile === me.mobile) : [];
+           } else if (filter === 'tips') {
+               if (me) {
+                   const myQuestionIds = posts.filter(p => p.type === 'question' && p.name === me.name && p.mobile === me.mobile).map(p => p.id);
+                   const tipsAsPosts = [];
+                   posts.forEach(p => {
+                       if (myQuestionIds.includes(p.id) && Array.isArray(p.comments)) {
+                           p.comments.filter(c => c.ctype === 'tip').forEach(c => {
+                               tipsAsPosts.push({ id: p.id + '_' + c.id, type: 'tip', name: c.name, mobile: c.mobile, title: 'Tip on: ' + (p.title || snippet(p.content)), content: c.content, createdAt: c.createdAt, likes: 0, comments: [] });
+                           });
+                       }
+                   });
+                   visible = tipsAsPosts.sort((a,b) => b.createdAt - a.createdAt);
+               } else {
+                   visible = [];
+               }
+           } else if (filter === 'posts') {
+               visible = posts; // All posts from everyone
+           }
+           postsContainer.innerHTML = visible.map(p => postTemplate(p)).join('');
+       }
+
+       function setActiveFilter(filterName) {
+           const btn = document.querySelector(`.post-filters .filter-btn[data-filter="${filterName}"]`);
+           if (!btn) return;
+           document.querySelectorAll('.post-filters .filter-btn').forEach(b => b.classList.remove('active'));
+           btn.classList.add('active');
+       }
+
+       // Filter events
+       filters.forEach(btn => btn.addEventListener('click', () => {
+           filters.forEach(b => b.classList.remove('active'));
+           btn.classList.add('active');
+           render(btn.getAttribute('data-filter'));
+       }));
+
+       // Identity handling
+       const idObj = loadIdentity();
+       if (idObj) { showIdentity(idObj); setActiveFilter('posts'); render('posts'); } else { showIdentityInputs(); setActiveFilter('posts'); render('posts'); }
+       identity.btnSave.addEventListener('click', () => {
+           const name = identity.fieldName.value.trim();
+           const mobile = identity.fieldMobile.value.trim();
+           if (!name || !mobile) { alert('Please fill your name and mobile number.'); return; }
+           if (!/^\d{10}$/.test(mobile)) { alert('Please enter a valid 10-digit mobile number.'); return; }
+           saveIdentity({ name, mobile });
+           showIdentity({ name, mobile });
+           setActiveFilter('posts');
+           render('posts');
+       });
+       identity.btnChange.addEventListener('click', () => { localStorage.removeItem(IDENTITY_KEY); showIdentityInputs(); setActiveFilter('posts'); render('posts'); });
+       identity.btnNewPost.addEventListener('click', () => { toggleCompose(true); });
+       document.getElementById('cancel-post').addEventListener('click', () => { toggleCompose(false); });
+
+       function showIdentity(obj) {
+           identity.inputs.style.display = 'none';
+           identity.display.style.display = 'flex';
+           identity.name.textContent = obj.name;
+           identity.mobile.textContent = obj.mobile;
+       }
+       function showIdentityInputs() {
+           identity.inputs.style.display = 'flex';
+           identity.display.style.display = 'none';
+       }
+       function toggleCompose(show) { document.getElementById('compose-form').style.display = show ? 'block' : 'none'; }
+
+       // Create post
+       compose.submit.addEventListener('click', () => {
+           const me = loadIdentity();
+           if (!me) { alert('Please set your name and mobile number first.'); return; }
+           const name = me.name;
+           const mobile = me.mobile;
+           const type = compose.type.value;
+           const title = compose.title.value.trim();
+           const content = compose.content.value.trim();
+           if (!content) { alert('Please write something.'); return; }
+           const posts = loadPosts();
+           const post = { id: 'p_' + Date.now(), name, mobile, type, title, content, createdAt: Date.now(), likes: 0, comments: [] };
+           posts.push(post);
+           savePosts(posts);
+           compose.content.value = '';
+           compose.title.value = '';
+           toggleCompose(false);
+           setActiveFilter('posts');
+           render('posts');
+       });
+
+       // Post actions
+       postsContainer.addEventListener('click', (e) => {
+           const card = e.target.closest('.post-card');
+           if (!card) return;
+           if (e.target.closest('.btn-like')) {
+               const id = card.getAttribute('data-id');
+               const posts = loadPosts();
+               const post = posts.find(p => p.id === id);
+               if (post) {
+                   post.likes = (post.likes || 0) + 1;
+                   savePosts(posts);
+                   const countEl = card.querySelector('.like-count');
+                   if (countEl) countEl.textContent = String(post.likes);
+                   e.target.closest('.btn-like').classList.add('active');
+               }
+           }
+           if (e.target.closest('.btn-toggle-comments')) {
+               const box = card.querySelector('.comments');
+               if (box) { box.style.display = box.style.display === 'none' ? 'block' : 'none'; }
+           }
+
+           // Comment edit/delete
+           const editBtn = e.target.closest('.btn-edit-comment');
+           const deleteBtn = e.target.closest('.btn-delete-comment');
+           if (editBtn) {
+               const cid = editBtn.getAttribute('data-cid');
+               const cwrap = e.target.closest('.comment');
+               const text = cwrap.querySelector('.comment-text');
+               const form = cwrap.querySelector('.edit-comment-form');
+               if (form && text) { form.style.display = 'block'; text.style.display = 'none'; }
+           }
+           if (deleteBtn) {
+               const cid = deleteBtn.getAttribute('data-cid');
+               const me = loadIdentity();
+               const postId = card.getAttribute('data-id');
+               if (!me) return;
+               const posts = loadPosts();
+               const post = posts.find(p => p.id === postId);
+               if (!post) return;
+               const idx = (post.comments || []).findIndex(c => c.id === cid && isMe(c.name, c.mobile));
+               if (idx >= 0) {
+                   post.comments.splice(idx, 1);
+                   savePosts(posts);
+                   // Remove from DOM and update counter
+                   const cwrap = e.target.closest('.comment');
+                   if (cwrap) cwrap.remove();
+                   const counter = card.querySelector('.comment-count');
+                   if (counter) counter.textContent = String((post.comments || []).length);
+               }
+           }
+
+           // Post edit/delete
+           if (e.target.closest('.btn-edit-post')) {
+               const form = card.querySelector('.edit-post-form');
+               const contentDiv = card.querySelector('.post-content');
+               if (form && contentDiv) { form.style.display = 'block'; contentDiv.style.display = 'none'; }
+           }
+           if (e.target.closest('.btn-cancel-edit-post')) {
+               const form = card.querySelector('.edit-post-form');
+               const contentDiv = card.querySelector('.post-content');
+               if (form && contentDiv) { form.style.display = 'none'; contentDiv.style.display = 'block'; }
+           }
+           if (e.target.closest('.btn-save-edit-post')) {
+               const postId = card.getAttribute('data-id');
+               const form = card.querySelector('.edit-post-form');
+               if (!form) return;
+               const title = (form.elements['title'] ? form.elements['title'].value.trim() : '');
+               const content = (form.elements['content'] ? form.elements['content'].value.trim() : '');
+               if (!content) { alert('Post content cannot be empty.'); return; }
+               const posts = loadPosts();
+               const post = posts.find(p => p.id === postId);
+               const me = loadIdentity();
+               if (!post || !me || !isMe(post.name, post.mobile)) return;
+               post.title = title;
+               post.content = content;
+               savePosts(posts);
+               // Re-render to ensure template refresh
+               render(currentFilter());
+           }
+           if (e.target.closest('.btn-delete-post')) {
+               const postId = card.getAttribute('data-id');
+               const posts = loadPosts();
+               const idx = posts.findIndex(p => p.id === postId);
+               const me = loadIdentity();
+               if (idx >= 0 && me && isMe(posts[idx].name, posts[idx].mobile)) {
+                   posts.splice(idx, 1);
+                   savePosts(posts);
+                   render(currentFilter());
+               }
+           }
+       });
+
+       // Comment submit and edit-save/cancel
+       postsContainer.addEventListener('submit', (e) => {
+           const form = e.target.closest('.comment-form');
+           if (!form) return;
+           e.preventDefault();
+           const card = e.target.closest('.post-card');
+           const id = card.getAttribute('data-id');
+           const me = loadIdentity();
+           if (!me) { alert('Please set your name and mobile number first.'); return; }
+           const name = me.name;
+           const mobile = me.mobile;
+           const content = form.elements['content'].value.trim();
+           const ctype = form.elements['ctype'].value;
+           if (!content) { alert('Please enter your comment.'); return; }
+           const posts = loadPosts();
+           const post = posts.find(p => p.id === id);
+           if (post) {
+               const comment = { id: 'c_' + Date.now(), name, mobile, content, ctype, createdAt: Date.now() };
+               post.comments = post.comments || [];
+               post.comments.push(comment);
+               savePosts(posts);
+               const list = card.querySelector('.existing-comments');
+               if (list) list.insertAdjacentHTML('beforeend', commentTemplate(comment));
+               const counter = card.querySelector('.comment-count');
+               if (counter) counter.textContent = String(post.comments.length);
+               form.reset();
+               form.style.display = 'none';
+           }
+       });
+
+       postsContainer.addEventListener('submit', (e) => {
+           // Save edit
+           if (e.target.closest('.btn-save-edit')) {
+               const cwrap = e.target.closest('.comment');
+               const card = e.target.closest('.post-card');
+               const postId = card.getAttribute('data-id');
+               const cid = cwrap.getAttribute('data-cid');
+               const textarea = cwrap.querySelector('.edit-comment-form textarea');
+               const newText = (textarea ? textarea.value.trim() : '');
+               if (!newText) { alert('Comment cannot be empty.'); return; }
+               const posts = loadPosts();
+               const post = posts.find(p => p.id === postId);
+               if (!post) return;
+               const me = loadIdentity();
+               const cobj = (post.comments || []).find(c => c.id === cid && isMe(c.name, c.mobile));
+               if (!cobj) return;
+               cobj.content = newText;
+               savePosts(posts);
+               const textDiv = cwrap.querySelector('.comment-text');
+               if (textDiv) textDiv.innerHTML = linkify(escapeHtml(newText));
+               const form = cwrap.querySelector('.edit-comment-form');
+               if (form) form.style.display = 'none';
+               if (textDiv) textDiv.style.display = 'block';
+           }
+           // Cancel edit
+           if (e.target.closest('.btn-cancel-edit')) {
+               const cwrap = e.target.closest('.comment');
+               const form = cwrap.querySelector('.edit-comment-form');
+               const text = cwrap.querySelector('.comment-text');
+               if (form && text) { form.style.display = 'none'; text.style.display = 'block'; }
+           }
+       });
+
+   })();
    </script>
 </body>
 </html>
