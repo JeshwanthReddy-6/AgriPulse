@@ -52,8 +52,9 @@ body {
 }
 
 .fertilizer-card img {
-    width: px;
-    height: px;
+    width: 200px;
+    height: 200px;
+    object-fit: fill;
     align-items: center;
     object-fit: contain;
     margin-bottom: 1rem;
@@ -182,8 +183,8 @@ footer {
 }
 
 .fertilizer-modal img {
-    width: px;
-    height: px;
+    width: 200px;
+    height: 200px;
     align-items: center;
     object-fit: contain;
     margin-bottom: 1rem;
