@@ -6,6 +6,11 @@ import datetime
 from .models import SoilCropRecommendation
 from .models import CropDuration
 from .models import PlantingCalendar
+<<<<<<< Updated upstream
+=======
+from .models import CropSoilIrrigation
+
+>>>>>>> Stashed changes
 @csrf_exempt
 def dialogflow_webhook(request):
     # print(request)
@@ -140,8 +145,6 @@ def dialogflow_webhook(request):
     return JsonResponse({"fulfillmentText": "Only POST requests are accepted."})
 
 
-
-from .models import CropSoilIrrigation
 def get_irrigation_tip(crop, soil):
     try:
         # print("hii")
