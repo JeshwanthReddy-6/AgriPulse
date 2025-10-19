@@ -958,5 +958,18 @@
 
    })();
    </script>
+   
+   <script>
+   // Disease Detection Upload Button Navigation
+   (function() {
+       const uploadBtn = document.querySelector('.upload-btn');
+       if (uploadBtn) {
+           uploadBtn.addEventListener('click', function() {
+               // Navigate to the disease detection page
+               window.location.href = '/farmbot/crop-disease/';
+           });
+       }
+   })();
+   </script>
 </body>
 </html>

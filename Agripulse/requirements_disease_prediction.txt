@@ -1,0 +1,26 @@
+# Additional requirements for disease prediction integration
+# Add these to your existing requirements.txt
+
+# TensorFlow for machine learning model
+tensorflow>=2.10.0
+
+# For image processing
+Pillow>=9.0.0
+
+# For HTTP requests (already included in Django)
+requests>=2.28.0
+
+# For temporary file handling (built-in Python module)
+# tempfile - built-in, no installation needed
+
+# For JSON handling (built-in Python module)
+# json - built-in, no installation needed
+
+# For collections (built-in Python module)
+# collections - built-in, no installation needed
+
+# For file operations (built-in Python module)
+# os - built-in, no installation needed
+
+# For path operations (built-in Python module)
+# pathlib - built-in, no installation needed
