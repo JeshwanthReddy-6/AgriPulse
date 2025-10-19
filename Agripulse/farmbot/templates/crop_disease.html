@@ -416,6 +416,30 @@
         .floating-leaf:nth-child(8) { top: 75%; left: 80%; animation-delay: 8.4s; }
         .floating-leaf:nth-child(9) { top: 85%; left: 40%; animation-delay: 9.6s; }
         .floating-leaf:nth-child(10) { top: 95%; left: 60%; animation-delay: 10.8s; }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #2c5f2d;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(44, 95, 45, 0.3);
+            font-weight: 500;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(44, 95, 45, 0.2);
+            color: #1a3d1b;
+        }
     </style>
 </head>
 <body>
@@ -433,6 +457,10 @@
     </div>
     
     <div class="container">
+        <a href="{% url 'index' %}" class="back-btn">
+            ← Back to Home
+        </a>
+        
         <h1>🌱 Crop Disease Prediction</h1>
         <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem;">Upload a crop image and enter the crop name to get disease prediction and treatment recommendations.</p>
         
