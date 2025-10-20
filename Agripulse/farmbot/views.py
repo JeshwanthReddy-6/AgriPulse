@@ -7,11 +7,8 @@ import datetime
 from .models import SoilCropRecommendation
 from .models import CropDuration
 from .models import PlantingCalendar
-<<<<<<< Updated upstream
-=======
 from .models import CropSoilIrrigation
 
->>>>>>> Stashed changes
 from .disease_prediction_service import disease_service
 
 @csrf_exempt
